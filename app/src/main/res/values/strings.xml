@@ -4,5 +4,7 @@
     <string name="question_text">蒙古国海军实力排世界第23位</string>
     <string name="true_button">是的！</string>
     <string name="false_button">怎么可能！</string>
+    <string name="correct_toast">Correct!</string>
+    <string name="incorrect_toast">Inorrect!</string>
 
 </resources>
