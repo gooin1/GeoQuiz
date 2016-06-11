@@ -1,10 +1,16 @@
 <resources>
     <string name="app_name">GeoQuiz</string>
 
-    <string name="question_text">蒙古国海军实力排世界第23位</string>
     <string name="true_button">是的！</string>
     <string name="false_button">怎么可能！</string>
     <string name="correct_toast">Correct!</string>
     <string name="incorrect_toast">Inorrect!</string>
+    <string name="next_button">NEXT</string>
+
+    <string name="question_driver">你是老司机吗？</string>
+    <string name="question_nice">gooin长的帅吗？</string>
+    <string name="question_gis">GIS是Geographic Information System的缩写吗？</string>
+    <string name="question_css">PHP'\s的意思是拍黄片.</string>
+
 
 </resources>
