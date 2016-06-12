@@ -1,9 +1,10 @@
 package gooin.github.io.geoquiz;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -11,8 +12,8 @@ public class QuizActivity extends AppCompatActivity {
 
     private Button mTrueButton;
     private Button mFalseButton;
-    private Button mNextButton;
-    private Button mPrevButton;
+    private ImageButton mNextButton;
+    private ImageButton mPrevButton;
     private TextView mQuestionTextView;
 
 //    把问题列为一个数组，调用string里面的值
@@ -21,6 +22,7 @@ public class QuizActivity extends AppCompatActivity {
             new Question(R.string.question_gis, true),
             new Question(R.string.question_driver,false),
             new Question(R.string.question_css, true),
+            new Question(R.string.question_mdzz, true),
     };
     private int mCurrentIndex;
 
@@ -83,7 +85,7 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 //        nextButton 到下一个问题
-        mNextButton = (Button) findViewById(R.id.next_button);
+        mNextButton = (ImageButton) findViewById(R.id.next_button);
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,7 +99,7 @@ public class QuizActivity extends AppCompatActivity {
         });
 
 //        这个上一个按钮不能在第一个问题处返回到最后一个问题
-        mPrevButton = (Button) findViewById(R.id.prev_button);
+        mPrevButton = (ImageButton) findViewById(R.id.prev_button);
         mPrevButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
