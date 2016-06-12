@@ -50,6 +50,15 @@ public class QuizActivity extends AppCompatActivity {
 //        使用TextView
         mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
 
+//        为TextView添加点击事件，可以实现nextButton的功能
+        mQuestionTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
+                updateQuestion();
+            }
+        });
+
         updateQuestion();
 
 
