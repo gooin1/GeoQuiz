@@ -2,18 +2,22 @@ package gooin.github.io.geoquiz;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class QuizActivity extends AppCompatActivity {
 
+    private static final String TAG = "QuizActivity";
+    private static final String KEY_INDEX = "index";
+
+
     private Button mTrueButton;
     private Button mFalseButton;
-    private ImageButton mNextButton;
-    private ImageButton mPrevButton;
+    private Button mNextButton;
+    private Button mPrevButton;
     private TextView mQuestionTextView;
 
 //    把问题列为一个数组，调用string里面的值
@@ -49,6 +53,13 @@ public class QuizActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: OK");
+//        在 onCreate(...) 方法中检查存储的bundle信息（
+        if(savedInstanceState!=null){
+            mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+        }
+
+
         setContentView(R.layout.activity_quiz);
 //        使用TextView
         mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
@@ -85,7 +96,7 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 //        nextButton 到下一个问题
-        mNextButton = (ImageButton) findViewById(R.id.next_button);
+        mNextButton = (Button) findViewById(R.id.next_button);
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,7 +110,7 @@ public class QuizActivity extends AppCompatActivity {
         });
 
 //        这个上一个按钮不能在第一个问题处返回到最后一个问题
-        mPrevButton = (ImageButton) findViewById(R.id.prev_button);
+        mPrevButton = (Button) findViewById(R.id.prev_button);
         mPrevButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,4 +120,49 @@ public class QuizActivity extends AppCompatActivity {
         });
         updateQuestion();
     }
+
+
+
+
+    //        添加更多生命周期
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart: OK");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: OK");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: OK");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop: OK");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestory: OK");
+    }
+
+
+    //    添加方法用于存储mCurrentIndex值
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        Log.i(TAG, "onSaveInstanceState: ");
+        savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
+    }
+
+
 }
