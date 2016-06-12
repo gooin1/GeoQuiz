@@ -1,5 +1,6 @@
 package gooin.github.io.geoquiz;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,6 +19,7 @@ public class QuizActivity extends AppCompatActivity {
     private Button mFalseButton;
     private Button mNextButton;
     private Button mPrevButton;
+    private Button mCheatButton;
     private TextView mQuestionTextView;
 
 //    把问题列为一个数组，调用string里面的值
@@ -119,6 +121,17 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
         updateQuestion();
+
+        mCheatButton = (Button) findViewById(R.id.cheat_button);
+        mCheatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                添加cheat Activity的内容
+                Intent intent = new Intent(QuizActivity.this, CheatActivity.class);
+                startActivity(intent);
+
+            }
+        });
     }
 
 
