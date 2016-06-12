@@ -12,6 +12,7 @@ public class QuizActivity extends AppCompatActivity {
     private Button mTrueButton;
     private Button mFalseButton;
     private Button mNextButton;
+    private Button mPrevButton;
     private TextView mQuestionTextView;
 
 //    把问题列为一个数组，调用string里面的值
@@ -95,6 +96,15 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
+//        这个上一个按钮不能在第一个问题处返回到最后一个问题
+        mPrevButton = (Button) findViewById(R.id.prev_button);
+        mPrevButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCurrentIndex = (mCurrentIndex - 1) % mQuestionBank.length;
+                updateQuestion();
+            }
+        });
         updateQuestion();
     }
 }
