@@ -23,15 +23,22 @@ public class QuizActivity extends AppCompatActivity {
     };
     private int mCurrentIndex;
 
+    //    使用updateQuestion 封装公共代码
+    private void updateQuestion() {
+        int question = mQuestionBank[mCurrentIndex].getTextResId();
+        mQuestionTextView.setText(question);
+    }
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 //        使用TextView
         mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
-        int question = mQuestionBank[mCurrentIndex].getTextResId();
-        mQuestionTextView.setText(question);
 
+        updateQuestion();
 
 
         mTrueButton = (Button) findViewById(R.id.true_button);
@@ -56,9 +63,14 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
-                int question = mQuestionBank[mCurrentIndex].getTextResId();
-                mQuestionTextView.setText(question);
+
+//                使用封装后的代码
+//                int question = mQuestionBank[mCurrentIndex].getTextResId();
+//                mQuestionTextView.setText(question);
+                updateQuestion();
             }
         });
+
+        updateQuestion();
     }
 }
