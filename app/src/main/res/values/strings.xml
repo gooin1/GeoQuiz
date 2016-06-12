@@ -15,4 +15,8 @@
     <string name="question_mdzz">刷子是智障吗？</string>
 
 
+    <string name="warning_text">你确定要这么干吗？</string>
+    <string name="show_answer_button">SHOW ANSWER</string>
+    <string name="judgement_toast">小伙子，不能这么干啊，妈的智障！</string>
+
 </resources>
