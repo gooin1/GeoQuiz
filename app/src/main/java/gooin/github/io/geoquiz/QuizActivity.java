@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 public class QuizActivity extends AppCompatActivity {
 
+
     private static final String TAG = "QuizActivity";
     private static final String KEY_INDEX = "index";
 
@@ -120,18 +121,22 @@ public class QuizActivity extends AppCompatActivity {
                 updateQuestion();
             }
         });
-        updateQuestion();
+
 
         mCheatButton = (Button) findViewById(R.id.cheat_button);
         mCheatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                添加cheat Activity的内容
-                Intent intent = new Intent(QuizActivity.this, CheatActivity.class);
+//                Intent intent = new Intent(QuizActivity.this, CheatActivity.class);
+                boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAanswerTrue();
+                Intent intent = CheatActivity.newIntent(QuizActivity.this, answerIsTrue);
                 startActivity(intent);
 
             }
         });
+
+        updateQuestion();
     }
 
 
