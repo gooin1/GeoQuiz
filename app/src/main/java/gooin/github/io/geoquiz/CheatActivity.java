@@ -19,6 +19,7 @@ public class CheatActivity extends AppCompatActivity {
     private Button mShowAnswer;
 
 
+
     public static Intent newIntent(Context context,boolean answerIsTrue){
         Intent intent = new Intent(context, CheatActivity.class);
         intent.putExtra(EXTRA_ANSWER_IS_TRUE, answerIsTrue);
