@@ -1,5 +1,6 @@
 package gooin.github.io.geoquiz;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ public class QuizActivity extends AppCompatActivity {
 
     private static final String TAG = "QuizActivity";
     private static final String KEY_INDEX = "index";
+    public static final int REQUEST_CODE_CHEAT=0;
 
 
     private Button mTrueButton;
@@ -31,7 +33,8 @@ public class QuizActivity extends AppCompatActivity {
             new Question(R.string.question_css, true),
             new Question(R.string.question_mdzz, true),
     };
-    private int mCurrentIndex;
+    private int mCurrentIndex =0;
+    private boolean mIsCheater;
 
     //    使用updateQuestion 封装公共代码
     private void updateQuestion() {
@@ -42,13 +45,18 @@ public class QuizActivity extends AppCompatActivity {
     //    创建checkAnswer方法，传入Question的boolean参数  判断问题对错
     private void checkAnswer(boolean userPressedTrue) {
         boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAanswerTrue();
-        int messageResId = 0;
-        if (userPressedTrue == answerIsTrue) {
-            messageResId = R.string.correct_toast;
-        }else{
-            messageResId = R.string.incorrect_toast;
+        int messageResId=0;
+        if (mIsCheater) {
+            Toast.makeText(QuizActivity.this,R.string.judgement_toast, Toast.LENGTH_SHORT).show();
+//            messageResId =R.string.judgement_toast;
+        } else {
+            if (userPressedTrue == answerIsTrue) {
+                messageResId = R.string.correct_toast;
+            } else {
+                messageResId = R.string.incorrect_toast;
+            }
+            Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show();
         }
-        Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show();
     }
 
 
@@ -104,6 +112,7 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
+                mIsCheater=false;
 
 //                使用封装后的代码
 //                int question = mQuestionBank[mCurrentIndex].getTextResId();
@@ -112,7 +121,7 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
-//        这个上一个按钮不能在第一个问题处返回到最后一个问题
+//        这个上一个按钮不能在第一个问题处返回到最后一个问题e
         mPrevButton = (Button) findViewById(R.id.prev_button);
         mPrevButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,8 +140,9 @@ public class QuizActivity extends AppCompatActivity {
 //                Intent intent = new Intent(QuizActivity.this, CheatActivity.class);
                 boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAanswerTrue();
                 Intent intent = CheatActivity.newIntent(QuizActivity.this, answerIsTrue);
-                startActivity(intent);
+//                startActivity(intent);
 
+                startActivityForResult(intent, REQUEST_CODE_CHEAT);
             }
         });
 
@@ -140,7 +150,18 @@ public class QuizActivity extends AppCompatActivity {
     }
 
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+        if (requestCode == REQUEST_CODE_CHEAT) {
+            if (data == null) {
+                return;
+            }
+            mIsCheater = CheatActivity.wasAnswerShown(data);
+        }
+    }
 
     //        添加更多生命周期
     @Override

@@ -12,6 +12,8 @@ public class CheatActivity extends AppCompatActivity {
     //    添加extra常量
     private static final String EXTRA_ANSWER_IS_TRUE=
             "gooin.github.io.geoquiz.answer_is_true";
+    private static final String EXTRA_ANSWER_SHOWN=
+            "gooin.github.io.geoquiz.answer_shown";
 
 //    从extra中获取信息
     private boolean mAnswerIsTrue;
@@ -25,6 +27,17 @@ public class CheatActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_ANSWER_IS_TRUE, answerIsTrue);
         return intent;
     }
+
+    //    解析结果intent
+    public static boolean wasAnswerShown(Intent result) {
+        return result.getBooleanExtra(EXTRA_ANSWER_SHOWN, false);
+    }
+    private void setAnswerShownResult(boolean isAnswerShown) {
+        Intent data = new Intent();
+        data.putExtra(EXTRA_ANSWER_SHOWN, isAnswerShown);
+        setResult(RESULT_OK,data);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +55,12 @@ public class CheatActivity extends AppCompatActivity {
                 } else {
                     mAnswerTextView.setText(R.string.false_button);
                 }
+                setAnswerShownResult(true);
             }
         });
 
 
     }
 }
+
+
