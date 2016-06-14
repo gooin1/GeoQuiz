@@ -18,7 +18,9 @@ public class QuizActivity extends AppCompatActivity {
     public static final int REQUEST_CODE_CHEAT=0;
 
 
+
     private Button mTrueButton;
+    private Button mShowApi;
     private Button mFalseButton;
     private Button mNextButton;
     private Button mPrevButton;
@@ -85,6 +87,16 @@ public class QuizActivity extends AppCompatActivity {
         });
 
         updateQuestion();
+
+        mShowApi=(Button)findViewById(R.id.api_button);
+        mShowApi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(QuizActivity.this, ShowApiActivity.class);
+                startActivity(intent);
+
+            }
+        });
 
 
         mTrueButton = (Button) findViewById(R.id.true_button);
